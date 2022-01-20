@@ -1,0 +1,47 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class PokeBag {
+    private final HashMap<String, ArrayList<Pokemon>> pokemons = new HashMap<>();
+
+    public ArrayList<Pokemon> getPokemons(String name) {
+        return pokemons.get(name);
+    }
+
+    public void add(Pokemon pokemon) {
+        String name = pokemon.name;
+
+        if (getPokemons(name) == null) {
+            pokemons.put(name, new ArrayList<Pokemon>());
+        }
+
+        getPokemons(name).add(pokemon);
+
+    }
+
+    public Pokemon getStrongest(String name) {
+        Pokemon strongest = null;
+        if (getPokemons(name) == null) {
+            return null;
+        }
+        for (Pokemon p :
+                getPokemons(name)) {
+            if (strongest == null || p.cp > strongest.cp) {
+                strongest = p;
+            }
+        }
+        return strongest;
+    }
+
+    public Pokemon getStrongest() {
+        Pokemon strongest=null;
+        for (String key   :
+                pokemons.keySet()) {
+            Pokemon p=getStrongest(key);
+            if (strongest == null  || p.cp> strongest.cp){
+                strongest=p;
+            }
+        }
+        return strongest;
+    }
+}
